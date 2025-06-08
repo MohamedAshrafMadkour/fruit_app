@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fruit_app/core/constants/constant.dart';
-import 'package:fruit_app/core/services/shared_prefs.dart';
+import 'package:fruit_app/core/services/shared_pref.dart';
 import 'package:fruit_app/core/util/app_color.dart';
 import 'package:fruit_app/core/util/styles.dart';
 import 'package:fruit_app/features/Auth/presentation/view/login_view.dart';

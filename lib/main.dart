@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:fruit_app/core/helper/on_generate_route.dart';
-import 'package:fruit_app/core/services/shared_prefs.dart';
+import 'package:fruit_app/core/services/shared_pref.dart';
 import 'package:fruit_app/features/splash/presentation/view/splash_view.dart';
 import 'package:fruit_app/generated/l10n.dart';
 
