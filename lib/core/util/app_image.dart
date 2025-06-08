@@ -6,9 +6,9 @@ class Assets {
   /// assets/images/app_icon.png
   static const String imagesAppIcon = "assets/images/app_icon.png";
 
-  /// Assets for imagesFirstOnboardingBackground
-  /// assets/images/first_onboarding_background.svg
-  static const String imagesFirstOnboardingBackground = "assets/images/first_onboarding_background.svg";
+  /// Assets for imagesFirstOnboardingBackgroundMin
+  /// assets/images/first_onboarding_background.min.svg
+  static const String imagesFirstOnboardingBackgroundMin = "assets/images/first_onboarding_background.min.svg";
 
   /// Assets for imagesFirstOnboardingImage
   /// assets/images/first_onboarding_image.svg
