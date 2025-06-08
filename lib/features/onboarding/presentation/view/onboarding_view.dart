@@ -5,6 +5,6 @@ class OnboardingView extends StatelessWidget {
   static const routeName = '/onboarding';
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold();
   }
 }

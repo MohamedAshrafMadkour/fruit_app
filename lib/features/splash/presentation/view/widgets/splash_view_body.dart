@@ -13,25 +13,28 @@ class SplashViewBody extends StatefulWidget {
 class _SplashViewBodyState extends State<SplashViewBody> {
   @override
   void initState() {
-    executionNavigation().then(
-      (value) =>
-          Navigator.pushReplacementNamed(context, OnboardingView.routeName),
-    );
+    executionNavigation();
     super.initState();
   }
 
-  Future<dynamic> executionNavigation() =>
-      Future.delayed(const Duration(seconds: 2));
+  void executionNavigation() {
+    Future.delayed(Duration(seconds: 10), () {
+      Navigator.pushReplacementNamed(context, OnboardingView.routeName);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.end,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
 
       children: [
-        SvgPicture.asset(Assets.imagesPlant),
-        Center(child: SvgPicture.asset(Assets.imagesFruitLabel)),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [SvgPicture.asset(Assets.imagesPlant)],
+        ),
+        SvgPicture.asset(Assets.imagesFruitLabel),
         SvgPicture.asset(Assets.imagesSplashBottom, fit: BoxFit.fill),
       ],
     );
