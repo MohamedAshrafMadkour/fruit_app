@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:fruit_app/core/constants/constant.dart';
-import 'package:fruit_app/core/services/shared_pref.dart';
 import 'package:fruit_app/core/util/app_color.dart';
 import 'package:fruit_app/core/util/styles.dart';
-import 'package:fruit_app/features/Auth/presentation/view/login_view.dart';
 
-class CustomButton extends StatelessWidget {
-  const CustomButton({super.key, required this.title});
+class CustomSignButton extends StatelessWidget {
+  const CustomSignButton({super.key, required this.title, this.onPressed});
   final String title;
+  final void Function()? onPressed;
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
@@ -19,10 +17,7 @@ class CustomButton extends StatelessWidget {
           borderRadius: BorderRadius.all(Radius.circular(16)),
         ),
       ),
-      onPressed: () {
-        SharedPref.setBool(kSharedPref, true);
-        Navigator.pushReplacementNamed(context, LoginView.routeName);
-      },
+      onPressed: onPressed,
       child: Text(title, textAlign: TextAlign.center, style: Styles.textBold16),
     );
   }

@@ -44,7 +44,7 @@ class _OnboardingViewBodyState extends State<OnboardingViewBody> {
           },
           dotsCount: 2,
           decorator: DotsDecorator(
-            activeColor: kPrimaryColor,
+            activeColor: AppColor.kPrimaryColor,
             color: Color.fromRGBO(31, 94, 59, .5),
           ),
         ),
@@ -56,7 +56,7 @@ class _OnboardingViewBodyState extends State<OnboardingViewBody> {
           visible: currentPage == 1 ? true : false,
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: CustomButton(),
+            child: CustomButton(title: 'ابدأ الان'),
           ),
         ),
         SizedBox(height: 56),

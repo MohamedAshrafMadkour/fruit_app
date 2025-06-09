@@ -6,6 +6,18 @@ class Assets {
   /// assets/images/app_icon.png
   static const String imagesAppIcon = "assets/images/app_icon.png";
 
+  /// Assets for imagesCheck
+  /// assets/images/check.svg
+  static const String imagesCheck = "assets/images/check.svg";
+
+  /// Assets for imagesFacebook
+  /// assets/images/facebook.svg
+  static const String imagesFacebook = "assets/images/facebook.svg";
+
+  /// Assets for imagesFirstOnboardingBackground
+  /// assets/images/first_onboarding_background.svg
+  static const String imagesFirstOnboardingBackground = "assets/images/first_onboarding_background.svg";
+
   /// Assets for imagesFirstOnboardingBackgroundMin
   /// assets/images/first_onboarding_background.min.svg
   static const String imagesFirstOnboardingBackgroundMin = "assets/images/first_onboarding_background.min.svg";
@@ -17,6 +29,14 @@ class Assets {
   /// Assets for imagesFruitLabel
   /// assets/images/fruit_label.svg
   static const String imagesFruitLabel = "assets/images/fruit_label.svg";
+
+  /// Assets for imagesGoogleIcon
+  /// assets/images/google_icon.svg
+  static const String imagesGoogleIcon = "assets/images/google_icon.svg";
+
+  /// Assets for imagesIphoneIcon
+  /// assets/images/iphone_icon.svg
+  static const String imagesIphoneIcon = "assets/images/iphone_icon.svg";
 
   /// Assets for imagesPlant
   /// assets/images/plant.svg
