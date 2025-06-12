@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fruit_app/core/helper/build_snack_bar.dart';
+import 'package:fruit_app/core/widgets/custom_progress_indicator.dart';
 import 'package:fruit_app/features/Auth/presentation/manager/register_cubit/register_cubit.dart';
 import 'package:fruit_app/features/Auth/presentation/view/widgets/register_view_body.dart';
-import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 class CustomRegisterBodyConsumer extends StatelessWidget {
   const CustomRegisterBodyConsumer({super.key});
@@ -19,7 +19,7 @@ class CustomRegisterBodyConsumer extends StatelessWidget {
         }
       },
       builder: (context, state) {
-        return ModalProgressHUD(
+        return CustomProgressIndicator(
           inAsyncCall: state is RegisterLoading ? true : false,
           child: RegisterViewBody(),
         );
