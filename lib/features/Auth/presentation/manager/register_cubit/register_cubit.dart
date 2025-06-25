@@ -14,6 +14,18 @@ class RegisterCubit extends Cubit<RegisterState> {
     required String password,
     required String name,
   }) async {
+    final bool hasLetters = password.contains(RegExp(r'[A-Za-z]'));
+    final bool hasNumbers = password.contains(RegExp(r'\d'));
+    if (password.length < 8) {
+      emit(RegisterFailure(error: 'الباسورد يجب ان يكون اكثر من 8 رموز'));
+      return;
+    }
+
+    if (!hasLetters || !hasNumbers) {
+      emit(RegisterFailure(error: ' الباسورد يجب ان يحتوي على ارقام و حروف'));
+      return;
+    }
+
     emit(RegisterLoading());
     final result = await authRepo.createEmailAndPassword(
       email: email,

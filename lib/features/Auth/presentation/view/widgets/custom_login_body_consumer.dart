@@ -4,6 +4,7 @@ import 'package:fruit_app/core/helper/build_snack_bar.dart';
 import 'package:fruit_app/core/widgets/custom_progress_indicator.dart';
 import 'package:fruit_app/features/Auth/presentation/manager/login_cubit/login_cubit.dart';
 import 'package:fruit_app/features/Auth/presentation/view/widgets/login_view_body.dart';
+import 'package:fruit_app/features/home/presentation/view/main_view.dart';
 
 class CustomLoginBodyConsumer extends StatelessWidget {
   const CustomLoginBodyConsumer({super.key});
@@ -15,13 +16,13 @@ class CustomLoginBodyConsumer extends StatelessWidget {
         if (state is LoginFailure) {
           showBar(context, state.error);
         } else if (state is LoginSuccess) {
-          showBar(context, 'تم تسجيل الدخول بنجاح');
+          Navigator.pushNamed(context, MainView.routeName);
         }
       },
       builder: (context, state) {
         return CustomProgressIndicator(
-          inAsyncCall: state is LoginLoading ? true : false,
-          child: LoginViewBody(),
+          inAsyncCall: state is LoginLoading,
+          child: const LoginViewBody(),
         );
       },
     );

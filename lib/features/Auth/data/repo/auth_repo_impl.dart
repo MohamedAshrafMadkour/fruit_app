@@ -1,12 +1,15 @@
+import 'dart:convert';
 import 'dart:developer';
-
+import 'dart:io';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fruit_app/core/constants/collection_firebase.dart';
+import 'package:fruit_app/core/constants/constant.dart';
 import 'package:fruit_app/core/error/exception.dart';
 import 'package:fruit_app/core/error/server_failure.dart';
 import 'package:fruit_app/core/services/auth_service.dart';
 import 'package:fruit_app/core/services/database_service.dart';
+import 'package:fruit_app/core/services/shared_pref.dart';
 import 'package:fruit_app/features/Auth/data/model/user_model.dart';
 import 'package:fruit_app/features/Auth/domain/entites/user_entity.dart';
 import 'package:fruit_app/features/Auth/domain/repo/auth_repo.dart';
@@ -27,13 +30,15 @@ class AuthRepoImpl extends AuthRepo {
       user = await authService.registerUser(email: email, password: password);
       var userEntity = UserEntity(name: name, email: email, uId: user.uid);
       await addData(user: userEntity);
-      return Right(userEntity);
+      return right(userEntity);
     } on AuthException catch (e) {
       await deleteUser(user);
-      return Left(ServerFailure(message: e.message));
+      return left(ServerFailure(message: e.message));
     } catch (e) {
       await deleteUser(user);
-      return Left(ServerFailure(message: e.toString()));
+      return left(
+        ServerFailure(message: 'حدث خطأ ما. الرجاء المحاولة مرة اخرى.'),
+      );
     }
   }
 
@@ -48,11 +53,12 @@ class AuthRepoImpl extends AuthRepo {
         password: password,
       );
       var userEntity = await getUser(uId: user.uid);
-      return Right(userEntity);
+      await saveUserData(user: userEntity);
+      return right(UserModel.fromFirebaseUser(user));
     } on AuthException catch (e) {
-      return Left(ServerFailure(message: e.message));
+      return left(ServerFailure(message: e.message));
     } catch (e) {
-      return Left(ServerFailure(message: e.toString()));
+      return left(ServerFailure(message: e.toString()));
     }
   }
 
@@ -60,12 +66,12 @@ class AuthRepoImpl extends AuthRepo {
   Future<Either<Failure, UserEntity>> loginWithFacebook() async {
     try {
       final user = await authService.signInWithFacebook();
-      return Right(UserModel.fromFirebaseUser(user));
+      return right(UserModel.fromFirebaseUser(user));
     } catch (e) {
       log(
         'Exception in AuthRepoImpl.createUserWithEmailAndPassword: ${e.toString()}',
       );
-      return Left(
+      return left(
         ServerFailure(message: 'حدث خطأ ما. الرجاء المحاولة مرة اخرى.'),
       );
     }
@@ -75,37 +81,22 @@ class AuthRepoImpl extends AuthRepo {
   Future<Either<Failure, UserEntity>> loginWithGoogle() async {
     try {
       final user = await authService.signInWithGoogle();
-      return Right(UserModel.fromFirebaseUser(user));
+      return right(UserModel.fromFirebaseUser(user));
     } catch (e) {
       log(
         'Exception in AuthRepoImpl.createUserWithEmailAndPassword: ${e.toString()}',
       );
-      return Left(
+      return left(
         ServerFailure(message: 'حدث خطأ ما. الرجاء المحاولة مرة اخرى.'),
       );
     }
   }
 
   @override
-  Future<Either<Failure, UserEntity>> loginWithApple() async {
-    try {
-      final user = await authService.signInWithApple();
-      return Right(UserModel.fromFirebaseUser(user));
-    } catch (e) {
-      log(
-        'Exception in AuthRepoImpl.createUserWithEmailAndPassword: ${e.toString()}',
-      );
-      return Left(
-        ServerFailure(message: 'حدث خطأ ما. الرجاء المحاولة مرة اخرى.'),
-      );
-    }
-  }
-
-  @override
-  Future<void> addData({required UserEntity user}) async {
+  Future addData({required UserEntity user}) async {
     var data = UserModel.fromEntity(user).toMap();
     await databaseService.addData(
-      path: CollectionFirebase.userEndPoint,
+      path: CollectionFirebase.addUser,
       data: data,
       documentId: user.uId,
     );
@@ -115,8 +106,9 @@ class AuthRepoImpl extends AuthRepo {
   Future<UserEntity> getUser({required String uId}) async {
     var data = await databaseService.getData(
       documentId: uId,
-      path: CollectionFirebase.getUserEndPoint,
+      path: CollectionFirebase.getUser,
     );
+
     return UserModel.fromJson(data);
   }
 
@@ -124,6 +116,73 @@ class AuthRepoImpl extends AuthRepo {
   Future deleteUser(User? user) async {
     if (user != null) {
       return authService.deleteUser();
+    }
+  }
+
+  @override
+  Future saveUserData({required UserEntity user}) async {
+    var jsonData = jsonEncode(UserModel.fromEntity(user).toMap());
+    SharedPref.setString(kSaveData, jsonData);
+  }
+
+  @override
+  Future<Either<Failure, void>> sendOtp({
+    required String phone,
+    required void Function(String verificationId) onCodeSent,
+  }) async {
+    try {
+      await authService.verifyPhone(phone: phone, onCodeSent: onCodeSent);
+      return const Right(null);
+    } on SocketException {
+      return left(ServerFailure(message: 'تاكد من اتصالك بالانترنت.'));
+    } catch (e) {
+      return left(
+        ServerFailure(message: 'حدث خطأ ما. الرجاء المحاولة مرة اخرى.'),
+      );
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> confirmOtp({
+    required String smsCode,
+    required String verificationId,
+  }) async {
+    try {
+      await authService.confirmPhone(
+        smsCode: smsCode,
+        verificationId: verificationId,
+      );
+      return const Right(null);
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'invalid-phone-number') {
+        return left(ServerFailure(message: 'رقم الهاتف غير صحيح.'));
+      } else if (e.code == 'too-many-requests') {
+        return left(ServerFailure(message: 'تم استخدام هذا الرقم من قبل.'));
+      } else if (e.code == 'invalid-verification-code') {
+        return left(ServerFailure(message: 'كود التحقق غير صحيح.'));
+      } else {
+        return left(
+          ServerFailure(message: 'حدث خطأ ما. الرجاء المحاولة مرة اخرى.'),
+        );
+      }
+    } catch (e) {
+      return left(
+        ServerFailure(message: 'حدث خطأ ما. الرجاء المحاولة مرة اخرى.'),
+      );
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> updatePassword({
+    required String newPassword,
+  }) async {
+    try {
+      await authService.updatePassword(newPassword: newPassword);
+      return const Right(null);
+    } catch (e) {
+      return left(
+        ServerFailure(message: 'حدث خطأ ما. الرجاء المحاولة مرة اخرى.'),
+      );
     }
   }
 }

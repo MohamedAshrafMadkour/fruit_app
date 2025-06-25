@@ -1,4 +1,6 @@
 abstract class CollectionFirebase {
-  static const userEndPoint = 'users';
-  static const getUserEndPoint = 'users';
+  static const addUser = 'users';
+  static const getUser = 'users';
+  static const getProductEndPoint = 'addProduct';
+  static const addOrder = 'Order';
 }

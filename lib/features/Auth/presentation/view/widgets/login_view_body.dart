@@ -6,12 +6,12 @@ import 'package:fruit_app/core/util/app_image.dart';
 import 'package:fruit_app/core/util/styles.dart';
 import 'package:fruit_app/core/widgets/custom_password_field.dart';
 import 'package:fruit_app/features/Auth/presentation/manager/login_cubit/login_cubit.dart';
+import 'package:fruit_app/features/Auth/presentation/view/forget_password_view.dart';
 import 'package:fruit_app/features/Auth/presentation/view/widgets/custom_login_list_tile.dart';
-import 'package:fruit_app/features/Auth/presentation/view/widgets/custom_sign_button.dart';
+import 'package:fruit_app/core/widgets/custom_sign_button.dart';
 import 'package:fruit_app/features/Auth/presentation/view/widgets/custom_text_form_field.dart';
 import 'package:fruit_app/features/Auth/presentation/view/widgets/dont_have_any_account.dart';
 import 'package:fruit_app/features/Auth/presentation/view/widgets/or_divider.dart';
-import 'package:fruit_app/features/home/presentation/view/home_view.dart';
 
 class LoginViewBody extends StatefulWidget {
   const LoginViewBody({super.key});
@@ -34,7 +34,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
           key: formKey,
           child: Column(
             children: [
-              SizedBox(height: 24),
+              const SizedBox(height: 24),
               CustomTextFormField(
                 hintText: 'البريد الإلكتروني',
                 keyboardType: TextInputType.emailAddress,
@@ -42,46 +42,53 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                   email = value;
                 },
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               CustomPasswordField(
                 onSaved: (value) {
                   password = value;
                 },
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Text(
-                    'نسيت كلمة المرور؟',
-                    style: Styles.textSemiBold13.copyWith(
-                      color: AppColor.kLightPrimaryColor,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(
+                        context,
+                        ForgetPasswordView.routeName,
+                      );
+                    },
+                    child: Text(
+                      'نسيت كلمة المرور؟',
+                      style: Styles.textSemiBold13.copyWith(
+                        color: AppColor.kLightPrimaryColor,
+                      ),
                     ),
                   ),
                 ],
               ),
-              SizedBox(height: 33),
-              CustomSignButton(
+              const SizedBox(height: 33),
+              CustomButton(
                 title: 'تسجيل دخول',
                 onPressed: () {
-                  // if (formKey.currentState!.validate()) {
-                  //   formKey.currentState!.save();
-                  //   context.read<LoginCubit>().loginInEmailAndPassword(
-                  //     email: email!,
-                  //     password: password!,
-                  //   );
-                  // } else {
-                  //   autovalidateMode = AutovalidateMode.always;
-                  //   setState(() {});
-                  // }
-                  Navigator.pushNamed(context, HomeView.routeName);
+                  if (formKey.currentState!.validate()) {
+                    formKey.currentState!.save();
+                    context.read<LoginCubit>().loginInEmailAndPassword(
+                      email: email!,
+                      password: password!,
+                    );
+                  } else {
+                    autovalidateMode = AutovalidateMode.always;
+                    setState(() {});
+                  }
                 },
               ),
-              SizedBox(height: 33),
-              DontHaveAnyAccount(),
-              SizedBox(height: 33),
-              OrDivider(),
-              SizedBox(height: 16),
+              const SizedBox(height: 33),
+              const DontHaveAnyAccount(),
+              const SizedBox(height: 33),
+              const OrDivider(),
+              const SizedBox(height: 16),
               CustomLoginListTile(
                 onTap: () {
                   context.read<LoginCubit>().loginWithGoogle();
@@ -89,15 +96,8 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                 image: Assets.imagesGoogleIcon,
                 title: 'تسجيل بواسطة جوجل',
               ),
-              SizedBox(height: 16),
-              CustomLoginListTile(
-                onTap: () {
-                  context.read<LoginCubit>().loginWithApple();
-                },
-                image: Assets.imagesIphoneIcon,
-                title: 'تسجيل بواسطة أبل',
-              ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
+
               CustomLoginListTile(
                 onTap: () {
                   context.read<LoginCubit>().loginWithFacebook();

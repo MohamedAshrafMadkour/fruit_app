@@ -10,18 +10,20 @@ void showBar(BuildContext context, String message) {
       ),
       backgroundColor: Colors.white,
       behavior: SnackBarBehavior.floating,
-      duration: const Duration(seconds: 5),
+      duration: const Duration(seconds: 1),
       content: ListTile(
         contentPadding: EdgeInsets.zero,
-        visualDensity: VisualDensity(vertical: VisualDensity.minimumDensity),
+        visualDensity: const VisualDensity(
+          vertical: VisualDensity.minimumDensity,
+        ),
         trailing: IconButton(
           color: AppColor.kLightPrimaryColor,
           onPressed: () {},
-          icon: Icon(Icons.error),
+          icon: const Icon(Icons.error),
         ),
         title: Text(
           message,
-          style: TextStyle(color: AppColor.kLightPrimaryColor),
+          style: const TextStyle(color: AppColor.kLightPrimaryColor),
         ),
       ),
     ),

@@ -24,9 +24,8 @@ class CustomTextFormField extends StatelessWidget {
       validator: (value) {
         if (value == null || value.isEmpty) {
           return 'هذا الحقل مطلوب';
-        } else {
-          return null;
         }
+        return null;
       },
       obscureText: isObscure ?? false,
       keyboardType: keyboardType,

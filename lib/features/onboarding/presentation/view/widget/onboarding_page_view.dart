@@ -11,14 +11,14 @@ class OnboardingPageView extends StatelessWidget {
   Widget build(BuildContext context) {
     return PageView(
       controller: pageController,
-      children: [
+      children: const [
         PageViewItem(
           isVisible: true,
           subTitle:
               'اكتشف تجربة تسوق فريدة مع FruitHUB. استكشف مجموعتنا الواسعة من الفواكه الطازجة الممتازة واحصل على أفضل العروض والجودة العالية.',
           background: Assets.imagesFirstOnboardingBackgroundMin,
           image: Assets.imagesFirstOnboardingImage,
-          title: const CustomTextSpan(),
+          title: CustomTextSpan(),
         ),
         PageViewItem(
           isVisible: false,

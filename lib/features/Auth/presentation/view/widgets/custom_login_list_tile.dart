@@ -18,7 +18,7 @@ class CustomLoginListTile extends StatelessWidget {
       child: ListTile(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
-          side: BorderSide(width: 1, color: const Color(0xFFDCDEDE)),
+          side: const BorderSide(width: 1, color: Color(0xFFDCDEDE)),
         ),
 
         leading: SvgPicture.asset(image),

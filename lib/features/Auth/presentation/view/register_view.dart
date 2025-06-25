@@ -14,8 +14,8 @@ class RegisterView extends StatelessWidget {
     return BlocProvider(
       create: (context) => RegisterCubit(getIt<AuthRepo>()),
       child: Scaffold(
-        appBar: customAppBar(title: ' حساب جديد'),
-        body: CustomRegisterBodyConsumer(),
+        appBar: customAppBar(title: ' حساب جديد', context: context),
+        body: const CustomRegisterBodyConsumer(),
       ),
     );
   }

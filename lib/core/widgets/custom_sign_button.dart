@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:fruit_app/core/util/app_color.dart';
 import 'package:fruit_app/core/util/styles.dart';
 
-class CustomSignButton extends StatelessWidget {
-  const CustomSignButton({super.key, required this.title, this.onPressed});
+class CustomButton extends StatelessWidget {
+  const CustomButton({super.key, required this.title, this.onPressed});
   final String title;
   final void Function()? onPressed;
   @override

@@ -16,8 +16,18 @@ abstract class AuthRepo {
   });
   Future<Either<Failure, UserEntity>> loginWithGoogle();
   Future<Either<Failure, UserEntity>> loginWithFacebook();
-  Future<Either<Failure, UserEntity>> loginWithApple();
+  Future<Either<Failure, void>> updatePassword({required String newPassword});
   Future<void> addData({required UserEntity user});
+  Future saveUserData({required UserEntity user});
   Future<UserEntity> getUser({required String uId});
   Future deleteUser(User? user);
+  Future<Either<Failure, void>> sendOtp({
+    required String phone,
+    required void Function(String verificationId) onCodeSent,
+  });
+
+  Future<Either<Failure, void>> confirmOtp({
+    required String smsCode,
+    required String verificationId,
+  });
 }

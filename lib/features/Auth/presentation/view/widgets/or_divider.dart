@@ -6,10 +6,10 @@ class OrDivider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
+    return const Row(
       children: [
-        const Expanded(child: Divider(color: Color(0xFFDCDEDE))),
-        const SizedBox(width: 18),
+        Expanded(child: Divider(color: Color(0xFFDCDEDE))),
+        SizedBox(width: 18),
         Text('أو', textAlign: TextAlign.center, style: Styles.textSemiBold16),
         SizedBox(width: 18),
         Expanded(child: Divider(color: Color(0xFFDCDEDE))),

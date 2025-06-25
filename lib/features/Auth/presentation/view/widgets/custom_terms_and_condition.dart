@@ -24,8 +24,8 @@ class _CustomTermsAndConditionState extends State<CustomTermsAndCondition> {
           },
           isChecked: isTermsAccepted,
         ),
-        SizedBox(width: 16),
-        Expanded(child: CustomTextSpanConditions()),
+        const SizedBox(width: 16),
+        const Expanded(child: CustomTextSpanConditions()),
       ],
     );
   }

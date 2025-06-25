@@ -43,23 +43,23 @@ class _OnboardingViewBodyState extends State<OnboardingViewBody> {
             pageController.jumpToPage(position);
           },
           dotsCount: 2,
-          decorator: DotsDecorator(
+          decorator: const DotsDecorator(
             activeColor: AppColor.kPrimaryColor,
             color: Color.fromRGBO(31, 94, 59, .5),
           ),
         ),
-        SizedBox(height: 26),
+        const SizedBox(height: 26),
         Visibility(
           maintainAnimation: true,
           maintainState: true,
           maintainSize: true,
           visible: currentPage == 1 ? true : false,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16),
             child: CustomButton(title: 'ابدأ الان'),
           ),
         ),
-        SizedBox(height: 56),
+        const SizedBox(height: 56),
       ],
     );
   }

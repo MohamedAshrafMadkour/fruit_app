@@ -4,7 +4,7 @@ import 'package:fruit_app/core/constants/constant.dart';
 import 'package:fruit_app/core/helper/build_snack_bar.dart';
 import 'package:fruit_app/core/widgets/custom_password_field.dart';
 import 'package:fruit_app/features/Auth/presentation/manager/register_cubit/register_cubit.dart';
-import 'package:fruit_app/features/Auth/presentation/view/widgets/custom_sign_button.dart';
+import 'package:fruit_app/core/widgets/custom_sign_button.dart';
 import 'package:fruit_app/features/Auth/presentation/view/widgets/custom_terms_and_condition.dart';
 import 'package:fruit_app/features/Auth/presentation/view/widgets/custom_text_form_field.dart';
 import 'package:fruit_app/features/Auth/presentation/view/widgets/have_an_account.dart';
@@ -31,7 +31,7 @@ class _RegisterViewBodyState extends State<RegisterViewBody> {
           key: formKey,
           child: Column(
             children: [
-              SizedBox(height: 24),
+              const SizedBox(height: 24),
               CustomTextFormField(
                 onSaved: (value) {
                   name = value;
@@ -39,7 +39,7 @@ class _RegisterViewBodyState extends State<RegisterViewBody> {
                 hintText: 'الاسم كامل',
                 keyboardType: TextInputType.name,
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               CustomTextFormField(
                 onSaved: (value) {
                   email = value;
@@ -47,20 +47,20 @@ class _RegisterViewBodyState extends State<RegisterViewBody> {
                 hintText: 'البريد الإلكتروني',
                 keyboardType: TextInputType.emailAddress,
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               CustomPasswordField(
                 onSaved: (value) {
                   password = value;
                 },
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               CustomTermsAndCondition(
                 onChanged: (value) {
                   isTermsAccepted = value;
                 },
               ),
-              SizedBox(height: 33),
-              CustomSignButton(
+              const SizedBox(height: 33),
+              CustomButton(
                 title: 'إنشاء حساب جديد',
                 onPressed: () {
                   if (formKey.currentState!.validate()) {
@@ -81,9 +81,9 @@ class _RegisterViewBodyState extends State<RegisterViewBody> {
                   }
                 },
               ),
-              SizedBox(height: 33),
-              HaveAnAccount(),
-              SizedBox(height: 33),
+              const SizedBox(height: 33),
+              const HaveAnAccount(),
+              const SizedBox(height: 33),
             ],
           ),
         ),

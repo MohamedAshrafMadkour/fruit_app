@@ -43,13 +43,4 @@ class LoginCubit extends Cubit<LoginState> {
       (user) => emit(LoginSuccess(user: user)),
     );
   }
-
-  Future<void> loginWithApple() async {
-    emit(LoginLoading());
-    final result = await authRepo.loginWithApple();
-    result.fold(
-      (failure) => emit(LoginFailure(error: failure.message)),
-      (user) => emit(LoginSuccess(user: user)),
-    );
-  }
 }
