@@ -40,7 +40,7 @@ class VerifyCubit extends Cubit<VerifyState> {
     required String verificationId,
   }) async {
     emit(VerifyLoading());
-    if (verificationId == 'test-verification-id' && smsCode == '123456') {
+    if (verificationId == 'test-verification-id' && smsCode == '884837') {
       await Future.delayed(const Duration(milliseconds: 500));
       emit(VerifySuccess());
       return;

@@ -11,7 +11,6 @@ import 'package:fruit_app/features/Auth/presentation/view/widgets/new_password_s
 import 'package:fruit_app/features/best_selling/presentation/view/best_selling_view.dart';
 import 'package:fruit_app/features/check_out/presentation/check_out_view.dart';
 import 'package:fruit_app/features/home/domain/entities/cart_entity.dart';
-import 'package:fruit_app/features/home/domain/entities/cart_item_entity.dart';
 import 'package:fruit_app/features/home/presentation/view/details_view.dart';
 import 'package:fruit_app/features/home/presentation/view/main_view.dart';
 import 'package:fruit_app/features/onboarding/presentation/view/onboarding_view.dart';
