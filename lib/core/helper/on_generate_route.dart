@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fruit_app/core/entity/product_entity.dart';
-import 'package:fruit_app/core/notification/presentation/notification_view.dart';
 import 'package:fruit_app/features/Auth/presentation/manager/verify_cubit/verify_cubit.dart';
 import 'package:fruit_app/features/Auth/presentation/view/forget_password_view.dart';
 import 'package:fruit_app/features/Auth/presentation/view/login_view.dart';
@@ -49,8 +48,7 @@ Route<dynamic> onGenerateRoute(dynamic settings) {
       );
     case NewPasswordSection.routeName:
       return MaterialPageRoute(builder: (_) => const NewPasswordSection());
-    case NotificationView.routeName:
-      return MaterialPageRoute(builder: (_) => const NotificationView());
+
     case CheckOutView.routeName:
       return MaterialPageRoute(
         builder: (_) =>
