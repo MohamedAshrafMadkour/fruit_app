@@ -5,7 +5,6 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:fruit_app/core/helper/on_generate_route.dart';
 import 'package:fruit_app/core/services/custom_bloc_service.dart';
 import 'package:fruit_app/core/services/get_it_service.dart';
-import 'package:fruit_app/core/services/notification_service.dart';
 import 'package:fruit_app/core/services/shared_pref.dart';
 import 'package:fruit_app/core/util/app_color.dart';
 import 'package:fruit_app/features/home/presentation/manager/item_cart/item_cart_cubit.dart';
@@ -17,7 +16,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await SharedPref.init();
-  await NotificationMessageService.initMessage();
+
   getItSetup();
   Bloc.observer = CustomBlocService();
   runApp(const FruitApp());
